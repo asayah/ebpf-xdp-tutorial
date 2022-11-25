@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  client:
+    command: "-f /dev/null"
+    entrypoint: /usr/bin/tail
+    tty: true
+    image: alpine/curl
+    networks:
+    - network
+  router:
+    privileged: true
+    tty: true 
+    build:
+      context: ./
+      dockerfile: Dockerfile-router
+    networks:
+    - network
+    
+  taget-A:
+    image: nginxdemos/hello:plain-text
+    hostname: target-A
+    networks:
+    - network
+
+  taget-B:
+    image: nginxdemos/hello:plain-text
+    hostname: target-A
+    networks:
+    - network
+networks:
+  network: {}
