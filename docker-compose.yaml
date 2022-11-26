@@ -24,7 +24,7 @@ services:
 
   taget-B:
     image: nginxdemos/hello:plain-text
-    hostname: target-A
+    hostname: target-B
     networks:
     - network
 networks:
