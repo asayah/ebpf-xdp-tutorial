@@ -1,4 +1,4 @@
-TARGET = ./labs/routing/
+TARGET = ./labs/filtering/
 
 BPF_C = ${TARGET:=xdp.c}
 BPF_OBJ = ${BPF_C:.c=.o}
