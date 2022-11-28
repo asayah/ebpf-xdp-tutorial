@@ -1,0 +1,15 @@
+slug: ebpf-oss-japan
+id: 2vgirrdm5xed
+title: Intro to eBPF XDP
+teaser: Intro to eBPF XDP
+description: Intro to eBPF XDP
+icon: ""
+level: beginner
+tags:
+- eBPF
+owner: soloio
+developers:
+- adam.sayah@solo.io
+private: false
+published: true
+checksum: "11636115462028983905"
