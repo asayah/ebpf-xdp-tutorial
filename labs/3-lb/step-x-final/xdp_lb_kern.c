@@ -5,7 +5,8 @@
 #define BACKEND_A 2
 #define BACKEND_B 3
 #define CLIENT 4
-#define LB 5
+#define RESTRICTEDCLIENT 5
+#define LB 6
 
 SEC("xdp_lb")
 int xdp_load_balancer(struct xdp_md *ctx)
