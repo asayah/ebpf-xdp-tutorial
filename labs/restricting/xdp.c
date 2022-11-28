@@ -27,12 +27,9 @@ int precess_xdp(struct xdp_md *ctx)
     if (data + sizeof(struct ethhdr) + sizeof(struct iphdr) > data_end)
         return XDP_ABORTED;
 
-    if (iph->protocol != IPPROTO_TCP)
-        return XDP_PASS;
-
     bpf_printk("Got TCP packet from %x", iph->saddr);
 
-    if (iph->saddr == IP_ADDRESS(CLIENT))
+    if (iph->saddr == IP_ADDRESS(RESTRICTED_CLIENT))
     {
         return XDP_DROP;
     }
