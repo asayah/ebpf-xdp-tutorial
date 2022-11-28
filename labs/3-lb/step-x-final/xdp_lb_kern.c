@@ -13,7 +13,7 @@ int precess_xdp(struct xdp_md *ctx)
 {
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
-    int counter = 0
+    int counter = 0;
 
     bpf_printk("got something");
 
