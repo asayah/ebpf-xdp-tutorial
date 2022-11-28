@@ -1,5 +1,8 @@
 #/bin/sh
-# docker asayah/xdp-tutorial-base -t base --no-cache . 
+
+if ! [[ -z "${BUILD}" ]]; then
+    docker build -t asayah/xdp-tutorial-base --no-cache . 
+fi
 
 git submodule init
 git submodule update
