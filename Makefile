@@ -4,16 +4,15 @@ TARGET = ./labs/3-lb/step-x-final/xdp_lb
 
 # For xdp_liz, make and also make user. The others don't have userspace programs
 
-USER_TARGET = ${TARGET:=_user}
 BPF_TARGET = ${TARGET:=_kern}
 BPF_C = ${BPF_TARGET:=.c}
 BPF_OBJ = ${BPF_C:.c=.o}
 
 xdp: $(BPF_OBJ)
 	bpftool net detach xdpgeneric dev eth0
-	rm -f /sys/fs/bpf/$(TARGET)
-	bpftool prog load $(BPF_OBJ) /sys/fs/bpf/$(TARGET)
-	bpftool net attach xdpgeneric pinned /sys/fs/bpf/$(TARGET) dev eth0 
+	rm -f /sys/fs/bpf/tutorial_xdp
+	bpftool prog load $(BPF_OBJ) /sys/fs/bpf/tutorial_xdp
+	bpftool net attach xdpgeneric pinned /sys/fs/bpf/tutorial_xdp dev eth0 
 
 $(BPF_OBJ): %.o: %.c
 	clang -S \
@@ -30,7 +29,7 @@ $(BPF_OBJ): %.o: %.c
 
 clean:
 	bpftool net detach xdpgeneric dev eth0
-	rm -f /sys/fs/bpf/$(TARGET)
+	rm -f /sys/fs/bpf/tutorial_xdp
 	rm $(BPF_OBJ)
 	rm ${BPF_OBJ:.o=.ll}
 
