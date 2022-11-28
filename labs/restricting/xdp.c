@@ -34,23 +34,9 @@ int precess_xdp(struct xdp_md *ctx)
 
     if (iph->saddr == IP_ADDRESS(CLIENT))
     {
-        char be = BACKEND_A;
-        if (bpf_ktime_get_ns() % 2)
-            be = BACKEND_B;
-
-        iph->daddr = IP_ADDRESS(be);
-        eth->h_dest[5] = be;
+        return XDP_DROP;
     }
-    else
-    {
-        iph->daddr = IP_ADDRESS(CLIENT);
-        eth->h_dest[5] = CLIENT;
-    }
-    iph->saddr = IP_ADDRESS(ROUTER);
-    eth->h_source[5] = ROUTER;
-    iph->check = iph_csum(iph);
-
-    return XDP_TX;
+    return XDP_PASS;
 }
 
 char _license[] SEC("license") = "GPL";
