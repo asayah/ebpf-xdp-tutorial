@@ -1,11 +1,6 @@
-TARGET = ./labs/3-lb/step-x-final/xdp_lb
-# TARGET = packetdrop
-#TARGET = xdp_liz
+TARGET = ./labs/routing/
 
-# For xdp_liz, make and also make user. The others don't have userspace programs
-
-BPF_TARGET = ${TARGET:=_kern}
-BPF_C = ${BPF_TARGET:=.c}
+BPF_C = ${TARGET:=xdp.c}
 BPF_OBJ = ${BPF_C:.c=.o}
 
 xdp: $(BPF_OBJ)
