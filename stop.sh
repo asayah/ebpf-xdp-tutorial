@@ -1,1 +1,1 @@
-docker rm -f $(docker ps -q -a)
+docker rm -f client restricted-client router target-A target-B

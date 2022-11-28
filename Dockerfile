@@ -1,3 +1,6 @@
+
+# build and push this to your repo, mine is asayah/xdp-tutorial-base
+
 FROM ubuntu:20.04
 
 RUN apt update
