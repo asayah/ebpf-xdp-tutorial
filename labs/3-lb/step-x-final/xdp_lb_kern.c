@@ -2,17 +2,18 @@
 
 #define IP_ADDRESS(x) (unsigned int)(172 + (17 << 8) + (0 << 16) + (x << 24))
 
-#define BACKEND_A 2
-#define BACKEND_B 3
-#define CLIENT 4
-#define RESTRICTEDCLIENT 5
-#define LB 6
+#define BACKEND_A 2 // -> 172.17.0.2
+#define BACKEND_B 3 // -> 172.17.0.2
+#define CLIENT 4 // -> 172.17.0.2
+#define RESTRICTEDCLIENT 5 // -> 172.17.0.2
+#define ROUTER 6 // -> 172.17.0.2
 
-SEC("xdp_lb")
-int xdp_load_balancer(struct xdp_md *ctx)
+SEC("xdp")
+int precess_xdp(struct xdp_md *ctx)
 {
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
+    int counter = 0
 
     bpf_printk("got something");
 
@@ -40,17 +41,18 @@ int xdp_load_balancer(struct xdp_md *ctx)
 
         iph->daddr = IP_ADDRESS(be);
         eth->h_dest[5] = be;
+        counter++;
     }
     else
     {
         iph->daddr = IP_ADDRESS(CLIENT);
         eth->h_dest[5] = CLIENT;
     }
-    iph->saddr = IP_ADDRESS(LB);
-    eth->h_source[5] = LB;
+    iph->saddr = IP_ADDRESS(ROUTER);
+    eth->h_source[5] = ROUTER;
 
     iph->check = iph_csum(iph);
-
+    bpf_printk("counter %d", counter);
     return XDP_TX;
 }
 
