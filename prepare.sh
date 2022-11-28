@@ -1,6 +1,9 @@
 #/bin/sh
 docker build -t base --no-cache . 
 
+git submodule init
+git submodule update
+
 docker run -d --rm --name target-A -h target-A --env TERM=xterm-color nginxdemos/hello:plain-text
 docker run -d --rm --name target-B -h target-B --env TERM=xterm-color nginxdemos/hello:plain-text
 docker run -d -t -h client --name client --env TERM=xterm-color base
