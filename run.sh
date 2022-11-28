@@ -1,6 +1,5 @@
 #/bin/sh
-
-docker build -t base .
+docker build -t base --no-cache . 
 
 docker run -d --rm --name target-A -h target-A --env TERM=xterm-color nginxdemos/hello:plain-text
 docker run -d --rm --name target-B -h target-B --env TERM=xterm-color nginxdemos/hello:plain-text
