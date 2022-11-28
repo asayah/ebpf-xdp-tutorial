@@ -19,6 +19,8 @@ int precess_xdp(struct xdp_md *ctx)
 
     if (bpf_ntohs(eth->h_proto) != ETH_P_IPV6)
         return XDP_PASS;
+
+    return XDP_DROP    
 }
 
 char _license[] SEC("license") = "GPL";
