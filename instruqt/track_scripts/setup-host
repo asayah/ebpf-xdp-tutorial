@@ -15,4 +15,4 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io git -y
 #Tutorial prep 
 git clone https://github.com/asayah/ebpf-xdp-tutorial tutorial
 cd tutorial
-./prepare.sh
+./run.sh
