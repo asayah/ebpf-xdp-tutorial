@@ -1,6 +1,6 @@
 ---
-slug: setup
-id: lpv6lncj6g1y
+slug: routing
+id: qkuzlcknflrr
 type: challenge
 title: Bumblebee
 teaser: Prepare our eBPF env

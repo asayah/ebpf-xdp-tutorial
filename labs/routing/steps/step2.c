@@ -1,23 +1,19 @@
 #include "xdp.h"
-
-
 /*
 In this exercise we are going to route traffic between two different targets, target-A and target-B, this is why we need the IPs.
+  
 */
 #define IP_ADDRESS(x) (unsigned int)(172 + (17 << 8) + (0 << 16) + (x << 24))
+#define CLIENT 4 // -> 172.17.0.4
+#define ROUTER 6 // -> 172.17.0.6
 #define BACKEND_A 2 // -> 172.17.0.2
 #define BACKEND_B 3 // -> 172.17.0.3
-#define CLIENT 4 // -> 172.17.0.4
-#define RESTRICTED_CLIENT 5 // -> 172.17.0.5
-#define ROUTER 6 // -> 172.17.0.6
 
 SEC("xdp/route")
 int precess_xdp(struct xdp_md *ctx)
 {
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
-
-    bpf_printk("got something");
 
     struct ethhdr *eth = data;
     if (data + sizeof(struct ethhdr) > data_end)
@@ -61,6 +57,7 @@ int precess_xdp(struct xdp_md *ctx)
     eth->h_source[5] = ROUTER;
     iph->check = iph_csum(iph);
 
+    //Now instead of passing the packet we will forward it the same network interface. 
     return XDP_TX;
 }
 

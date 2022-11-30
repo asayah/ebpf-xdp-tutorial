@@ -25,23 +25,8 @@ int precess_xdp(struct xdp_md *ctx)
     if (bpf_ntohs(eth->h_proto) != ETH_P_IP)
         return XDP_PASS;
    
-   /*
-   In the following section we are parsing iph, to get the the source ip of the incoming packet. 
-   */
-    struct iphdr *iph = data + sizeof(struct ethhdr);
-    if (data + sizeof(struct ethhdr) + sizeof(struct iphdr) > data_end)
-        // If not a valid iph, we abort. 
-        return XDP_ABORTED;
-
-    bpf_printk("Got TCP packet from %x", iph->saddr);
-
-    if (iph->saddr == IP_ADDRESS(RESTRICTED_CLIENT))
-    {
-        // If the IP of the incoming packet is restricted, drop the packet.
-        return XDP_DROP;
-    }
-    // if the packet is coming from another source, forward it. 
-    return XDP_PASS;
+    
+ return XDP_PASS;
 }
 
 char _license[] SEC("license") = "GPL";

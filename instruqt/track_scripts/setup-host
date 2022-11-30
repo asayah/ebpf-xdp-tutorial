@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #Docker
-echo '{ "ipv6": true, "fixed-cidr-v6": "fd00::/80"}' > /etc/docker/daemon.json
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -11,6 +10,11 @@ echo \
 
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io git -y
+
+#IPV6
+echo '{ "ipv6": true, "fixed-cidr-v6": "fd00::/80"}' > /etc/docker/daemon.json
+systemctl restart docker
+
 
 #Tutorial prep 
 git clone https://github.com/asayah/ebpf-xdp-tutorial tutorial
