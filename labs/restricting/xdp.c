@@ -8,7 +8,6 @@ This time, instead of having all the dependencies defined here, we migrated them
 In this exercise, we need to know about the ip of the source, since we are going to restrict a specif IP (RESTRICTED_CLIENT)
 */
 #define IP_ADDRESS(x) (unsigned int)(172 + (17 << 8) + (0 << 16) + (x << 24))
-#define CLIENT 4 // -> 172.17.0.4
 #define RESTRICTED_CLIENT 5 // -> 172.17.0.5
 
 SEC("xdp/route")

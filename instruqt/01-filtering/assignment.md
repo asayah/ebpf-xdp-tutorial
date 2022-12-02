@@ -15,10 +15,6 @@ difficulty: basic
 timelimit: 3600
 ---
 
-TODO: Intro to XDP
-
-
-
 1. The demo environment
 ==========================
 The demo environment consists of a set of docker containers, 2 clients from where we are going to use tools like ping and curl, and two demo backend containers that will just respond with 200 and the name of the service, and finally the most important container called `router`, that we will use to run the eBPF programs.
@@ -40,7 +36,8 @@ target-A
 We can test now that the router pod is reachable through both ipv4 and ipv6, let's check first for ipv4, (172.17.0.6 is the ip of the router container)
 
 ```bash
-docker exec client ping 172.17.0.6
+IPV4_ROUTER_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' router`
+docker exec client ping $IPV4_ROUTER_ADDR
 ```
 
 you should see the following result:
@@ -166,7 +163,8 @@ docker exec router make TARGET=./labs/filtering/
 Let's test now again the IPV6 and IPV:
 
 ```bash
-docker exec client ping 172.17.0.6
+IPV4_ROUTER_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' router`
+docker exec client ping $IPV4_ROUTER_ADDR
 ```
 
 you should see the following result:
@@ -195,6 +193,26 @@ You should expect the following result:
 PING fd00::242:ac11:6(fd00::242:ac11:6) 56 data bytes
 
 ```
+
+but if we ping it using ping (IPV4), it will still work: 
+```bash
+IPV4_ROUTER_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' router`
+docker exec client ping $IPV4_ROUTER_ADDR
+```
+
+you should see the following result:
+
+```
+PING 172.17.0.6 (172.17.0.6) 56(84) bytes of data.
+64 bytes from 172.17.0.6: icmp_seq=1 ttl=64 time=0.185 ms
+64 bytes from 172.17.0.6: icmp_seq=2 ttl=64 time=0.171 ms
+64 bytes from 172.17.0.6: icmp_seq=3 ttl=64 time=0.070 ms
+64 bytes from 172.17.0.6: icmp_seq=4 ttl=64 time=0.067 ms
+64 bytes from 172.17.0.6: icmp_seq=5 ttl=64 time=0.084 ms
+```
+
+You can stop the command after couple seconds using `CTRL+C`.
+
 Great! our filter is working, no result should be return back from ping6, this means that we couldn't connect to the router container using its IPV6 filter.
 
 

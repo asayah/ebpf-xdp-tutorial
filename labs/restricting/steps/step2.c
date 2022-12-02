@@ -2,7 +2,6 @@
 #include "xdp.h"
 
 #define IP_ADDRESS(x) (unsigned int)(172 + (17 << 8) + (0 << 16) + (x << 24))
-#define CLIENT 4 // -> 172.17.0.4
 #define RESTRICTED_CLIENT 5 // -> 172.17.0.5
 
 SEC("xdp/route")
