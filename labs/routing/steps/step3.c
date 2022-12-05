@@ -55,17 +55,14 @@ int precess_xdp(struct xdp_md *ctx)
         This is how we retrieve a value from the map.
         We are incrementing the value each time we are going to load balance. 
         */
-        value = bpf_map_lookup_elem(&val_map, &key);
+        value = bpf_map_lookup_elem(&rxcnt, &key);
         if (value)
-            *value += 1;
-
+                *value += 1;
         /*
         We make a decision based on the count (value), to determine to which target we are going to route. 
         */
         char be = BACKEND_A;
-        value = bpf_map_lookup_elem(&rxcnt, &key);
-        if (value)
-                *value += 1;
+
         /*
         if (value % 2)
             be = BACKEND_B;
