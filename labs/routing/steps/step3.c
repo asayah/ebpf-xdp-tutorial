@@ -11,12 +11,15 @@
 Let's define a map to store the number of of times the router was used to load balance, and we will use this information to build a strict round robin.
 */
 
-struct bpf_map_def SEC("maps") val_map = {
-	.type        = BPF_MAP_TYPE_HASH,
-	.key_size    = sizeof(__u32),
-	.value_size  = sizeof(__u32),
-	.max_entries = 1,
-};
+
+struct {
+        __uint(type, BPF_MAP_TYPE_HASH);
+        __type(key, __u32);
+        __type(value, long);
+        __uint(max_entries, 1);
+} rxcnt SEC(".maps");
+
+
 
 SEC("xdp/route")
 int precess_xdp(struct xdp_md *ctx)
@@ -24,8 +27,8 @@ int precess_xdp(struct xdp_md *ctx)
     /*
     We need a key to store data in the map. 
     */
-    u32 key = 0;
-    u32 *value;
+    __u32 key = 0;
+    long *value;
     
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
@@ -60,6 +63,9 @@ int precess_xdp(struct xdp_md *ctx)
         We make a decision based on the count (value), to determine to which target we are going to route. 
         */
         char be = BACKEND_A;
+        value = bpf_map_lookup_elem(&rxcnt, &key);
+        if (value)
+                *value += 1;
         /*
         if (value % 2)
             be = BACKEND_B;
