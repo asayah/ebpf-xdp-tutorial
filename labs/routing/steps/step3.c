@@ -14,7 +14,7 @@ Let's define a map to store the number of of times the router was used to load b
 struct bpf_map_def SEC("maps") val_map = {
 	.type        = BPF_MAP_TYPE_HASH,
 	.key_size    = sizeof(__u32),
-	.value_size  = sizeof(__u32),
+	.value_size  = sizeof(long),
 	.max_entries = 1,
 };
 
@@ -25,7 +25,7 @@ int precess_xdp(struct xdp_md *ctx)
     We need a key to store data in the map. 
     */
     __u32 key = 0;
-    __u32 *value;
+    long *value;
     
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
