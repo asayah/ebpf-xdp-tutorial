@@ -25,7 +25,7 @@ int precess_xdp(struct xdp_md *ctx)
     We need a key to store data in the map. 
     */
     __u32 key = 0;
-    long *value;
+    long value;
     
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
@@ -54,13 +54,13 @@ int precess_xdp(struct xdp_md *ctx)
         */
         value = bpf_map_lookup_elem(&val_map, &key);
         if (value)
-            *value += 1;
+            value += 1;
 
         /*
         We make a decision based on the count (value), to determine to which target we are going to route. 
         */
         char be = BACKEND_A;
-        if (*value % 2)
+        if (value % 2)
             be = BACKEND_B;
 
         iph->daddr = IP_ADDRESS(be);

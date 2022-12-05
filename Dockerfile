@@ -5,6 +5,6 @@ FROM ubuntu:20.04
 
 WORKDIR /tutorial
 RUN apt update
-RUN apt-get --assume-yes install clang llvm libelf-dev libpcap-dev gcc-multilib build-essential make linux-tools-5.15.0-1022-gcp curl iputils-ping
+RUN apt-get --assume-yes install clang llvm libelf-dev libpcap-dev gcc-multilib build-essential make linux-tools-5.15.0-1025-gcp curl iputils-ping
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
