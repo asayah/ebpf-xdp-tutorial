@@ -8,9 +8,10 @@ tabs:
 - title: Terminal
   type: terminal
   hostname: host
-- title: Terminal 2
-  type: terminal
-  hostname: host
+- title: Configuration
+  type: code
+  hostname: kubernetes
+  path: /root/tutorial/dist/
 difficulty: basic
 timelimit: 3600
 ---

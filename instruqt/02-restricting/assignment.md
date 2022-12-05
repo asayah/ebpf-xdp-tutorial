@@ -2,18 +2,16 @@
 slug: restricting
 id: lpv6lncj6g1y
 type: challenge
-title: Bumblebee
-teaser: Prepare our eBPF env
+title: Restricting traffic using eBPF XDP
+teaser: Restricting traffic using eBPF XDP
 tabs:
 - title: Terminal
   type: terminal
   hostname: host
-- title: Terminal 2
-  type: terminal
-  hostname: host
-- title: Terminal 3
-  type: terminal
-  hostname: host
+- title: Configuration
+  type: code
+  hostname: kubernetes
+  path: /root/tutorial/dist/
 difficulty: basic
 timelimit: 3600
 ---

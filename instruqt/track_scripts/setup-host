@@ -12,9 +12,9 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io git -y
 
 #IPV6
-echo '{ "ipv6": true, "fixed-cidr-v6": "fd00::/80"}' > /etc/docker/daemon.json
+echo '{ "ipv6": true, "fixed-cidr-v6": "fd00::/80", "insecure-registries" : [ "localhost:5000" ]}' > /etc/docker/daemon.json
 systemctl restart docker
-
+docker run --network=host --name registry -d registry 
 
 #Tutorial prep 
 git clone https://github.com/asayah/ebpf-xdp-tutorial tutorial

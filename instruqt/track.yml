@@ -2,7 +2,12 @@ slug: ebpf-oss-japan
 id: 2vgirrdm5xed
 title: Intro to eBPF XDP
 teaser: Intro to eBPF XDP
-description: Intro to eBPF XDP
+description: During This Workshop, we will explore eBPF XDP, and do the following;
+  We will create an eBPF program first to restrict the IPV6 traffic, then we will
+  create and eBBPF XDP program to restrict the the traffic comming from a specific
+  IP, and finally we will create an XDP program to load balance between multiple targets,
+  We will also explore Bumblebee, an open source tool to speed up the creation of
+  eBPF programs.
 icon: ""
 level: beginner
 tags:
@@ -12,4 +17,4 @@ developers:
 - adam.sayah@solo.io
 private: false
 published: true
-checksum: "17948808525017477875"
+checksum: "8672486637002441469"

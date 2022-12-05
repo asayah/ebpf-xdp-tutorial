@@ -2,18 +2,16 @@
 slug: routing
 id: qkuzlcknflrr
 type: challenge
-title: Bumblebee
-teaser: Prepare our eBPF env
+title: Routing Traffic Using eBPF XDP
+teaser: Routing Traffic Using eBPF XDP
 tabs:
 - title: Terminal
   type: terminal
   hostname: host
-- title: Terminal 2
-  type: terminal
-  hostname: host
-- title: Terminal 3
-  type: terminal
-  hostname: host
+- title: Configuration
+  type: code
+  hostname: kubernetes
+  path: /root/tutorial/dist/
 difficulty: basic
 timelimit: 3600
 ---
@@ -114,10 +112,10 @@ Request ID: e8edaac3dfecdc7d01a9797374844aec
 Or something similar, this means that when calling the `ROUTER` we are successfully load balancing between `TARGET-A` and `TARGET-B`.
 
 
-Great!, we created an XDP load balancer, but this can be optimized, in a real world scenario, the IPs of the client should be passed dynamically for to the kernel space so that the XDP program can process them them, and for all the applications we wrote today we should create also a corresponding user space program to control the XDP code and provide user input. 
+Great!, we created an XDP load balancer, but this can be optimized, in a real world scenario, the IPs of the client should be passed dynamically for to the kernel space so that the XDP program can process them them, and for all the applications we wrote today we should create also a corresponding user space program to control the XDP code and provide user input.
 
-here is an example of an eBPF program and it's user space program: 
+here is an example of an eBPF program and it's user space program:
 see: [User space program example](https://github.com/iovisor/bcc/blob/master/libbpf-tools/oomkill.c).
 
 
-Creating a user space program can be really complicated, this is why the Bumblebee project was created, it is at tool to simplify and speed-up the creating of eBPF programs, in the following lab we will learn more about it.   
+Creating a user space program can be really complicated, this is why the Bumblebee project was created, it is at tool to simplify and speed-up the creating of eBPF programs, in the following lab we will learn more about it.
