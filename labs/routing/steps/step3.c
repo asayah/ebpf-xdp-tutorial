@@ -62,11 +62,9 @@ int precess_xdp(struct xdp_md *ctx)
         We make a decision based on the count (value), to determine to which target we are going to route. 
         */
         char be = BACKEND_A;
-
-        /*
-        if (value % 2)
+        if (*value % 2)
             be = BACKEND_B;
-        */    
+          
         iph->daddr = IP_ADDRESS(be);
         eth->h_dest[5] = be;
     }
