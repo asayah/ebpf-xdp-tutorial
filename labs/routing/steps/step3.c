@@ -14,7 +14,7 @@ Let's define a map to store the number of of times the router was used to load b
 
 struct {
 	__uint(type, BPF_MAP_TYPE_LRU_HASH);
-	__uint(max_entries, MAX_MAP_ENTRIES);
+	__uint(max_entries, 1);
 	__type(key, __u32);   // source IPv4 address
 	__type(value, __u32); // packet count
 } xdp_stats_map SEC(".maps");
