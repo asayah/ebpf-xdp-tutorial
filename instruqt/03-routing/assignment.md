@@ -114,14 +114,14 @@ Request ID: e8edaac3dfecdc7d01a9797374844aec
 Or something similar, this means that when calling the `ROUTER` we are successfully load balancing between `TARGET-A` and `TARGET-B`.
 
 
-Great!, we created an XDP load balancer, but this can be optimized, let's create a loadBalancer with a deterministic round robin routing this time. 
+Great!, we created an XDP load balancer, but this can be optimized, let's create a loadBalancer with a deterministic round robin routing this time.
 
-For this we will need a storage mechanism to keep track of the last called target, we will incorporate this in our code, run the following command: 
+For this we will need a storage mechanism to keep track of the last called target, we will incorporate this in our code, run the following command:
 
 
 ```bash
 cp ./tutorial/labs/routing/steps/step3.c ./tutorial/dist/xdp.c
 ```
 
-You see that now we added a map, this will be used to keep track of the last target we routed to, the maps are also an essential component for the communication between the userspace and the kernel space since it's the way to transfer data. 
+You see that now we added a map, this will be used to keep track of the last target we routed to, the maps are also an essential component for the communication between the userspace and the kernel space since it's the way to transfer data.
 
