@@ -45,7 +45,7 @@ int precess_xdp(struct xdp_md *ctx)
     if (iph->protocol != IPPROTO_TCP)
         return XDP_PASS;
 
-   // bpf_printk("Got TCP packet from %x", iph->saddr);
+    bpf_printk("Got TCP packet from %x", iph->saddr);
 
     if (iph->saddr == IP_ADDRESS(CLIENT))
     {
@@ -76,7 +76,7 @@ int precess_xdp(struct xdp_md *ctx)
             __sync_fetch_and_add(pkt_count, 1);
         }
 
-        bpf_printk("Incrementing to %lu\n", *pkt_count);
+        // bpf_printk("Incrementing to %lu\n", *pkt_count);
         iph->daddr = IP_ADDRESS(be);
         eth->h_dest[5] = be;
     }
