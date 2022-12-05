@@ -13,12 +13,11 @@ Let's define a map to store the number of of times the router was used to load b
 
 
 struct {
-        __uint(type, BPF_MAP_TYPE_HASH);
-        __type(key, __u32);
-        __type(value, long);
-        __uint(max_entries, 1);
-} rxcnt SEC(".maps");
-
+	__uint(type, BPF_MAP_TYPE_LRU_HASH);
+	__uint(max_entries, MAX_MAP_ENTRIES);
+	__type(key, __u32);   // source IPv4 address
+	__type(value, __u32); // packet count
+} xdp_stats_map SEC(".maps");
 
 
 SEC("xdp/route")
@@ -27,8 +26,7 @@ int precess_xdp(struct xdp_md *ctx)
     /*
     We need a key to store data in the map. 
     */
-    __u32 key = 0;
-    long *value;
+    __u32 ip = 0;
     
     void *data = (void *)(long)ctx->data;
     void *data_end = (void *)(long)ctx->data_end;
@@ -55,9 +53,7 @@ int precess_xdp(struct xdp_md *ctx)
         This is how we retrieve a value from the map.
         We are incrementing the value each time we are going to load balance. 
         */
-        value = bpf_map_lookup_elem(&rxcnt, &key);
-        if (value)
-                *value += 1;
+
         /*
         We make a decision based on the count (value), to determine to which target we are going to route. 
         */
@@ -68,7 +64,19 @@ int precess_xdp(struct xdp_md *ctx)
           
         */
 
-        bpf_printk("Incrementing to %ld", *value);
+
+        __u32 *pkt_count = bpf_map_lookup_elem(&xdp_stats_map, &ip);
+        if (!pkt_count) {
+            // No entry in the map for this IP address yet, so set the initial value to 1.
+            __u32 init_pkt_count = 1;
+            bpf_map_update_elem(&xdp_stats_map, &ip, &init_pkt_count, BPF_ANY);
+        } else {
+            // Entry already exists for this IP address,
+            // so increment it atomically using an LLVM built-in.
+            __sync_fetch_and_add(pkt_count, 1);
+        }
+
+        bpf_printk("Incrementing to %lu\n", *pkt_count);
         iph->daddr = IP_ADDRESS(be);
         eth->h_dest[5] = be;
     }
