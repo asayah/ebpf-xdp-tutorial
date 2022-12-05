@@ -10,7 +10,7 @@ tabs:
   hostname: host
 - title: Configuration
   type: code
-  hostname: kubernetes
+  hostname: host
   path: /root/tutorial/dist/
 difficulty: basic
 timelimit: 3600
