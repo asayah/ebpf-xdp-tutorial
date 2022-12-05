@@ -81,12 +81,6 @@ In the following section we will use XDP to filter traffic to a destination, XDP
 
 
 In the following example, we will create an XDP program that will filter out and drop all IPV6 traffic.
-
-Let's first create a folder where we can write our code:
-```bash
-mkdir ./tutorial/dist
-```
-
 Note: at anytime, you can see your configuration under `Configuration` tab.
 
 first step is to create `.c` file, let's call it `xdp.c`, run the following command:

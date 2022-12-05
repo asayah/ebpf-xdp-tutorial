@@ -114,14 +114,10 @@ Request ID: e8edaac3dfecdc7d01a9797374844aec
 Or something similar, this means that when calling the `ROUTER` we are successfully load balancing between `TARGET-A` and `TARGET-B`.
 
 
-Great!, we created an XDP load balancer, but this can be optimized, let's create a loadBalancer with a deterministic round robin routing this time.
+Great!, we created an XDP load balancer, but this can be optimized, in a real world scenario, the IPs of the client should be passed dynamically for to the kernel space so that the XDP program can process them them, and for all the applications we wrote today we should create also a corresponding user space program to control the XDP code and provide user input. 
 
-For this we will need a storage mechanism to keep track of the last called target, we will incorporate this in our code, run the following command:
+here is an example of an eBPF program and it's user space program: 
+see: [User space program example](https://github.com/iovisor/bcc/blob/master/libbpf-tools/oomkill.c).
 
 
-```bash
-cp ./tutorial/labs/routing/steps/step3.c ./tutorial/dist/xdp.c
-```
-
-You see that now we added a map, this will be used to keep track of the last target we routed to, the maps are also an essential component for the communication between the userspace and the kernel space since it's the way to transfer data.
-
+Creating a user space program can be really complicated, this is why the Bumblebee project was created, it is at tool to simplify and speed-up the creating of eBPF programs, in the following lab we will learn more about it.   
