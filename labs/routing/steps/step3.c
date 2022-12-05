@@ -45,7 +45,7 @@ int precess_xdp(struct xdp_md *ctx)
     if (iph->protocol != IPPROTO_TCP)
         return XDP_PASS;
 
-    bpf_printk("Got TCP packet from %x", iph->saddr);
+   // bpf_printk("Got TCP packet from %x", iph->saddr);
 
     if (iph->saddr == IP_ADDRESS(CLIENT))
     {
