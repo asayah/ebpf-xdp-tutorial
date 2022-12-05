@@ -194,7 +194,7 @@ PING fd00::242:ac11:6(fd00::242:ac11:6) 56 data bytes
 
 ```
 
-but if we ping it using ping (IPV4), it will still work: 
+but if we ping it using ping (IPV4), it will still work:
 ```bash
 IPV4_ROUTER_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' router`
 docker exec client ping $IPV4_ROUTER_ADDR
