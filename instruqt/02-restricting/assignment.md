@@ -91,10 +91,15 @@ Finally, let's write some code to drop all the packets coming from the `RESTRICT
 
 
 ```bash
-cp ./tutorial/labs/restricting/steps/step2.c ./tutorial/dist/xdp.c
+cp ./tutorial/labs/restricting/steps/step3.c ./tutorial/dist/xdp.c
 ```
 
 You notice now that we added a section to check if the traffic is coming from the `RESTRICTED_CLIENT`, let's test our configuration now.
+
+Note: if you have an issue with your code, or just want to skip to the solution, you can run the following command:
+```
+docker exec router make TARGET=./labs/restricting/
+```
 
 Run the new XDP code:
 ```bash

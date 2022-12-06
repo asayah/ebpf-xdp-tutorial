@@ -63,6 +63,11 @@ For this we will check if the packet is coming from a specific source, in our ca
 
 For the traffic coming back from the `TARGET` we need to send it back to the `CLIENT`.
 
+Note: if you have an issue with your code, or just want to skip to the solution, you can run the following command:
+```
+docker exec router make TARGET=./labs/routing/
+```
+
 Let's run the code now:
 
 ```

@@ -186,24 +186,10 @@ You should expect the following result:
 
 ```
 PING fd00::242:ac11:6(fd00::242:ac11:6) 56 data bytes
-
-```
-
-but if we ping it using ping (IPV4), it will still work:
-```bash
-IPV4_ROUTER_ADDR=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' router`
-docker exec client ping $IPV4_ROUTER_ADDR
-```
-
-you should see the following result:
-
-```
-PING 172.17.0.6 (172.17.0.6) 56(84) bytes of data.
-64 bytes from 172.17.0.6: icmp_seq=1 ttl=64 time=0.185 ms
-64 bytes from 172.17.0.6: icmp_seq=2 ttl=64 time=0.171 ms
-64 bytes from 172.17.0.6: icmp_seq=3 ttl=64 time=0.070 ms
-64 bytes from 172.17.0.6: icmp_seq=4 ttl=64 time=0.067 ms
-64 bytes from 172.17.0.6: icmp_seq=5 ttl=64 time=0.084 ms
+From fd00::242:ac11:4 icmp_seq=1 Destination unreachable: Address unreachable
+From fd00::242:ac11:4 icmp_seq=2 Destination unreachable: Address unreachable
+From fd00::242:ac11:4 icmp_seq=3 Destination unreachable: Address unreachable
+From fd00::242:ac11:4 icmp_seq=4 Destination unreachable: Address unreachable
 ```
 
 You can stop the command after couple seconds using `CTRL+C`.
