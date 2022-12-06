@@ -154,3 +154,9 @@ In the next labs, we're going to run this eBPF program on Kubernetes as a Daemon
 Then, we're going to scrape the metrics in Prometheus.
 
 And finally, we're going to run a small web application which will query both Prometheus and the Kubernetes API server to build a network graph.
+
+
+Well done! This is the end of the workshop, I hope you enjoyed it!
+
+このセッションに参加していただきありがとうございます
+Thank you for attending this session
